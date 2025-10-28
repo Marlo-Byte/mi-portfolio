@@ -11,18 +11,24 @@ import { projects } from '@/lib/data';
 import { certificates } from '@/lib/certificates';
 import { StarsInteractive } from '@/components/animate-ui/components/backgrounds/stars';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import { AnimatedSection, AnimatedCard } from '@/components/AnimatedSection';
 
 const HomePage = () => {
   const [mounted, setMounted] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {
     setMounted(true);
+    setIsVisible(true);
     
     // Forzar recarga cuando se navega de vuelta al home
     const handleVisibilityChange = () => {
       if (!document.hidden) {
         setRefreshKey(prev => prev + 1);
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
       }
     };
 
@@ -46,7 +52,7 @@ const HomePage = () => {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen" key="home-page">
+      <div className="min-h-screen" key={`home-page-${refreshKey}`}>
       {/* Hero Section */}
       <section className="relative section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900 overflow-hidden">
         {/* Stars Background */}
@@ -193,13 +199,7 @@ const HomePage = () => {
       {/* Featured Projects Preview */}
       <section className="section-padding bg-white dark:bg-dark-900">
         <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <AnimatedSection isVisible={isVisible} className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Proyectos Destacados
             </h2>
@@ -207,16 +207,14 @@ const HomePage = () => {
               Algunos de mis trabajos más recientes que demuestran mi experiencia
               en desarrollo frontend y diseño de interfaces.
             </p>
-          </motion.div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" key={`projects-${refreshKey}`}>
             {featuredProjects.map((project, index) => (
-              <motion.div
+              <AnimatedCard
                 key={`project-${project.id}-${index}-${refreshKey}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                viewport={{ once: true }}
+                index={index}
+                isVisible={isVisible}
                 className="card group cursor-pointer"
               >
                 <div className="relative h-48 overflow-hidden rounded-t-xl">
@@ -277,17 +275,11 @@ const HomePage = () => {
                     )}
                   </div>
                 </div>
-              </motion.div>
+              </AnimatedCard>
             ))}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
+          <AnimatedSection isVisible={isVisible} delay={0.6} className="text-center mt-12">
             <Link
               href="/projects"
               className="btn-primary inline-flex items-center group"
@@ -295,27 +287,21 @@ const HomePage = () => {
               Ver Todos los Proyectos
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
-          </motion.div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Skills Preview */}
       <section className="section-padding bg-gray-50 dark:bg-dark-800">
         <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <AnimatedSection isVisible={isVisible} className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Tecnologías que Manejo
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Herramientas y tecnologías que utilizo para crear aplicaciones modernas y escalables.
             </p>
-          </motion.div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
             {[
@@ -329,9 +315,8 @@ const HomePage = () => {
               <motion.div
                 key={tech.name}
                 initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
                 className="bg-white dark:bg-dark-700 rounded-lg p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="flex flex-col items-center space-y-3">
@@ -368,29 +353,21 @@ const HomePage = () => {
       {/* Featured Certificates */}
       <section className="section-padding bg-white dark:bg-dark-900">
         <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <AnimatedSection isVisible={isVisible} className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Certificaciones y Títulos
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Mi formación académica y certificaciones profesionales que respaldan mi experiencia.
             </p>
-          </motion.div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" key={`certificates-${refreshKey}`}>
             {featuredCertificates.map((certificate, index) => (
-              <motion.div
+              <AnimatedCard
                 key={`certificate-${certificate.id}-${index}-${refreshKey}`}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                viewport={{ once: true }}
+                index={index}
+                isVisible={isVisible}
                 className="card group cursor-pointer"
               >
                 <div className="p-6">
@@ -431,17 +408,11 @@ const HomePage = () => {
                     )}
                   </div>
                 </div>
-              </motion.div>
+              </AnimatedCard>
             ))}
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mt-12"
-          >
+          <AnimatedSection isVisible={isVisible} delay={0.6} className="text-center mt-12">
             <Link
               href="/certificates"
               className="btn-primary inline-flex items-center group"
@@ -449,7 +420,7 @@ const HomePage = () => {
               Ver Todos los Certificados
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
-          </motion.div>
+          </AnimatedSection>
         </div>
       </section>
       </div>
