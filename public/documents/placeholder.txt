@@ -1,0 +1,11 @@
+# Documentos
+
+## Archivos necesarios:
+
+1. **cv-mariano-lopez.pdf** - Currículum Vitae de Mariano López
+
+## Instrucciones:
+- Reemplaza este archivo con tu CV real
+- Mantén el nombre exacto del archivo
+- Formato: PDF
+- Tamaño: Máximo 2MB

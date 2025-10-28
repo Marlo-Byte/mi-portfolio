@@ -1,0 +1,19 @@
+# Certificados y Títulos
+
+## Archivos necesarios:
+
+1. **ingenieria-sistemas.jpg** - Título de Ingeniería en Sistemas de Información
+2. **aws-cloud-practitioner.jpg** - Certificación AWS Cloud Practitioner
+3. **react-developer.jpg** - Certificación React Developer
+4. **typescript-fundamentals.jpg** - Curso TypeScript Fundamentals
+5. **ux-ui-design.jpg** - Certificación Diseño UX/UI
+6. **nodejs-backend.jpg** - Curso Node.js Backend Development
+7. **scrum-master.jpg** - Certificación Scrum Master
+8. **git-github.jpg** - Curso Git y Control de Versiones
+
+## Instrucciones:
+- Reemplaza este archivo con las imágenes reales de tus certificados
+- Mantén los nombres exactos de archivo
+- Formato: JPG o PNG
+- Tamaño: 800x600px (4:3 ratio)
+- Las imágenes se optimizarán automáticamente

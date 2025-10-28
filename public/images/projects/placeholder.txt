@@ -1,0 +1,15 @@
+# Imágenes de Proyectos
+
+## Archivos necesarios:
+
+1. **ecommerce-platform.jpg** - E-commerce Platform (800x600px)
+2. **task-management-app.jpg** - Task Management App (800x600px)
+3. **weather-dashboard.jpg** - Weather Dashboard (800x600px)
+4. **mobile-banking-app.jpg** - Mobile Banking App (800x600px)
+
+## Instrucciones:
+- Reemplaza este archivo con las imágenes reales
+- Mantén los nombres exactos de archivo
+- Formato: JPG o PNG
+- Tamaño: 800x600px (16:9 ratio)
+- Las imágenes se optimizarán automáticamente

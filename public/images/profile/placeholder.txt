@@ -1,0 +1,18 @@
+# Imágenes de Perfil
+
+## Archivos necesarios:
+
+1. **mariano-lopez.jpg** - Foto principal (400x400px)
+   - Para la página de inicio
+   - Formato: JPG o PNG
+   - Tamaño: Cuadrado (1:1 ratio)
+
+2. **mariano-lopez-about.jpg** - Foto para "Sobre Mí" (500x500px)
+   - Para la página "Sobre Mí"
+   - Formato: JPG o PNG
+   - Tamaño: Cuadrado (1:1 ratio)
+
+## Instrucciones:
+- Reemplaza este archivo con las imágenes reales
+- Mantén los nombres exactos de archivo
+- Las imágenes se optimizarán automáticamente
