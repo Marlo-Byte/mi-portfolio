@@ -2,13 +2,40 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { Download, MapPin, Calendar, Code, Palette, Database, Wrench } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode, faLaptopCode, faDatabase, faTools, faPalette, faServer, faCog } from '@fortawesome/free-solid-svg-icons';
 import { skills, experience } from '@/lib/data';
 import { Skill, Experience } from '@/types';
+import { AnimatedSection, AnimatedCard } from '@/components/AnimatedSection';
 
 const AboutPage = () => {
+  const [mounted, setMounted] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+    setIsVisible(true);
+    
+    // Forzar recarga cuando se navega de vuelta a la página
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        setRefreshKey(prev => prev + 1);
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
   const skillCategories = {
     frontend: { icon: faPalette, color: 'text-blue-500' },
     backend: { icon: faServer, color: 'text-green-500' },
@@ -20,14 +47,22 @@ const AboutPage = () => {
     return skills.filter(skill => skill.category === category);
   };
 
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-white dark:bg-dark-900">
+    <div className="min-h-screen bg-white dark:bg-dark-900" key={`about-page-${refreshKey}`}>
       {/* Header Section */}
       <section className="section-padding bg-gradient-to-r from-primary-50 to-purple-50 dark:from-dark-800 dark:to-dark-900">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8 }}
             className="text-center max-w-3xl mx-auto"
           >
@@ -48,9 +83,8 @@ const AboutPage = () => {
             {/* Profile Image */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
               transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
               className="relative"
             >
               <div className="relative w-96 h-96 mx-auto lg:mx-0">
@@ -73,9 +107,8 @@ const AboutPage = () => {
             {/* Bio Content */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
               transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
               className="space-y-6"
             >
               <div className="space-y-4">
@@ -138,20 +171,14 @@ const AboutPage = () => {
       {/* Skills Section */}
       <section className="section-padding bg-gray-50 dark:bg-dark-800">
         <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <AnimatedSection isVisible={isVisible} className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Habilidades y Tecnologías
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Herramientas y tecnologías que utilizo para crear aplicaciones modernas y escalables.
             </p>
-          </motion.div>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {Object.entries(skillCategories).map(([category, config], categoryIndex) => {
@@ -162,9 +189,8 @@ const AboutPage = () => {
                 <motion.div
                   key={category}
                   initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.5, delay: categoryIndex * 0.2 }}
-                  viewport={{ once: true }}
                   className="bg-white dark:bg-dark-700 rounded-xl p-6 shadow-lg"
                 >
                   <div className="flex items-center space-x-3 mb-6">
@@ -215,25 +241,19 @@ const AboutPage = () => {
       {/* Experience Section */}
       <section className="section-padding">
         <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <AnimatedSection isVisible={isVisible} className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Experiencia Profesional
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Mi trayectoria profesional y los roles que he desempeñado a lo largo de los años.
             </p>
-          </motion.div>
+          </AnimatedSection>
 
           <div className="max-w-3xl mx-auto">
             <div className="space-y-8">
               {experience.map((exp, index) => (
-                <ExperienceCard key={exp.id} experience={exp} index={index} />
+                <ExperienceCard key={exp.id} experience={exp} index={index} isVisible={isVisible} />
               ))}
             </div>
           </div>
@@ -243,13 +263,7 @@ const AboutPage = () => {
       {/* CTA Section */}
       <section className="section-padding bg-gradient-to-r from-primary-600 to-purple-600">
         <div className="container-custom text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="max-w-2xl mx-auto"
-          >
+          <AnimatedSection isVisible={isVisible} className="max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               ¿Trabajamos Juntos?
             </h2>
@@ -263,20 +277,19 @@ const AboutPage = () => {
             >
               Contactar Ahora
             </a>
-          </motion.div>
+          </AnimatedSection>
         </div>
       </section>
     </div>
   );
 };
 
-const ExperienceCard = ({ experience, index }: { experience: Experience; index: number }) => {
+const ExperienceCard = ({ experience, index, isVisible }: { experience: Experience; index: number; isVisible: boolean }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
       transition={{ duration: 0.5, delay: index * 0.2 }}
-      viewport={{ once: true }}
       className="relative"
     >
       {/* Timeline Line */}
