@@ -35,8 +35,7 @@ const AboutPage = () => {
               Sobre <span className="gradient-text">Mí</span>
             </h1>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              Conoce mi historia, pasión por el desarrollo y el camino que me ha llevado
-              hasta aquí en el mundo del desarrollo frontend.
+              Conoce más sobre mi trayectoria y pasión por la programación
             </p>
           </motion.div>
         </div>
@@ -86,30 +85,32 @@ const AboutPage = () => {
                 <div className="flex items-center space-x-4 text-gray-600 dark:text-gray-400">
                   <div className="flex items-center space-x-1">
                     <MapPin className="w-4 h-4" />
-                    <span>Madrid, España</span>
+                    <span>Salta Capital, Argentina</span>
                   </div>
                   <div className="flex items-center space-x-1">
                     <Calendar className="w-4 h-4" />
-                    <span>Disponible para proyectos</span>
+                    <span>Estudiante TECLAB</span>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-4 text-gray-600 dark:text-gray-400">
                 <p>
-                  Soy un desarrollador frontend apasionado por crear experiencias
-                  digitales excepcionales. Con más de 4 años de experiencia en el
-                  desarrollo web, me especializo en React, Next.js y TypeScript.
+                  Soy un estudiante apasionado de Técnico Superior en Programación en TECLAB, 
+                  ubicado en la hermosa ciudad de Salta Capital. Mi viaje en el mundo de la 
+                  programación comenzó con curiosidad y se ha convertido en una verdadera pasión.
                 </p>
                 <p>
-                  Mi enfoque se centra en escribir código limpio, escalable y mantenible,
-                  siempre buscando las mejores prácticas y las tecnologías más modernas
-                  para crear soluciones innovadoras.
+                  Me especializo en el desarrollo full stack, combinando creatividad con 
+                  funcionalidad para crear experiencias web excepcionales. Disfruto enfrentando 
+                  nuevos desafíos y aprendiendo tecnologías emergentes que me permitan crear 
+                  soluciones innovadoras.
                 </p>
                 <p>
-                  Cuando no estoy programando, me gusta explorar nuevas tecnologías,
-                  contribuir a proyectos de código abierto y compartir conocimiento
-                  con la comunidad de desarrolladores.
+                  En mi tiempo libre me gusta jugar al pádel con amigos, ir al gimnasio y 
+                  practicar con proyectos personales para seguir aprendiendo y mejorando mis 
+                  habilidades. Creo firmemente en el aprendizaje continuo y en compartir 
+                  conocimiento con la comunidad.
                 </p>
               </div>
 
@@ -253,7 +254,7 @@ const AboutPage = () => {
               ¿Trabajamos Juntos?
             </h2>
             <p className="text-lg text-primary-100 mb-8">
-              Estoy siempre abierta a nuevas oportunidades y proyectos interesantes.
+              Estoy siempre abierto a nuevas oportunidades y proyectos interesantes.
               ¡Hablemos sobre cómo puedo ayudarte a hacer realidad tus ideas!
             </p>
             <a

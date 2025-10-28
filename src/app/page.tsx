@@ -3,19 +3,50 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { ArrowRight, Github, Linkedin, Mail, Download } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode, faLaptopCode, faDatabase, faMobile, faGlobe, faTools } from '@fortawesome/free-solid-svg-icons';
 import { projects } from '@/lib/data';
 import { certificates } from '@/lib/certificates';
 import { StarsInteractive } from '@/components/animate-ui/components/backgrounds/stars';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
 const HomePage = () => {
+  const [mounted, setMounted] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+  
+  useEffect(() => {
+    setMounted(true);
+    
+    // Forzar recarga cuando se navega de vuelta al home
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        setRefreshKey(prev => prev + 1);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
   const featuredProjects = projects.filter(project => project.featured).slice(0, 3);
-  const featuredCertificates = certificates.filter(cert => cert.category === 'certification' || cert.category === 'academic').slice(0, 3);
+  const featuredCertificates = certificates.slice(0, 3);
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen">
+    <ErrorBoundary>
+      <div className="min-h-screen" key="home-page">
       {/* Hero Section */}
       <section className="relative section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900 overflow-hidden">
         {/* Stars Background */}
@@ -146,6 +177,8 @@ const HomePage = () => {
                     height={400}
                     className="w-full h-full object-cover"
                     priority
+                    quality={90}
+                    unoptimized={false}
                   />
                 </div>
                 <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary-600 rounded-full flex items-center justify-center shadow-lg">
@@ -176,10 +209,10 @@ const HomePage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" key={`projects-${refreshKey}`}>
             {featuredProjects.map((project, index) => (
               <motion.div
-                key={project.id}
+                key={`project-${project.id}-${index}-${refreshKey}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
@@ -193,6 +226,9 @@ const HomePage = () => {
                     width={400}
                     height={300}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                    quality={85}
+                    unoptimized={false}
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
                 </div>
@@ -347,10 +383,10 @@ const HomePage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" key={`certificates-${refreshKey}`}>
             {featuredCertificates.map((certificate, index) => (
               <motion.div
-                key={certificate.id}
+                key={`certificate-${certificate.id}-${index}-${refreshKey}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
@@ -416,7 +452,8 @@ const HomePage = () => {
           </motion.div>
         </div>
       </section>
-    </div>
+      </div>
+    </ErrorBoundary>
   );
 };
 

@@ -212,7 +212,7 @@ const CertificateCard = ({ certificate, index }: { certificate: CertificateType;
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="card group cursor-pointer overflow-hidden"
+      className="card group cursor-pointer overflow-hidden h-full flex flex-col"
     >
       {/* Certificate Image */}
       <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary-50 to-purple-50 dark:from-dark-800 dark:to-dark-900">
@@ -249,7 +249,7 @@ const CertificateCard = ({ certificate, index }: { certificate: CertificateType;
       </div>
 
       {/* Certificate Content */}
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-grow">
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
           {certificate.title}
         </h3>
@@ -268,12 +268,12 @@ const CertificateCard = ({ certificate, index }: { certificate: CertificateType;
           )}
         </div>
 
-        <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+        <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3 flex-grow">
           {certificate.description}
         </p>
 
-        {/* Action Links */}
-        <div className="flex space-x-4">
+        {/* Action Links - Always at bottom */}
+        <div className="flex space-x-4 mt-auto">
           {certificate.credentialUrl && (
             <a
               href={certificate.credentialUrl}
@@ -295,6 +295,11 @@ const CertificateCard = ({ certificate, index }: { certificate: CertificateType;
               Ver Certificado
               <Download className="ml-1 w-4 h-4 group-hover/link:translate-x-0.5 transition-transform duration-300" />
             </a>
+          )}
+          {!certificate.credentialUrl && !certificate.image && (
+            <span className="text-gray-400 dark:text-gray-500 text-sm">
+              Certificado disponible
+            </span>
           )}
         </div>
       </div>

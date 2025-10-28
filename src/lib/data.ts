@@ -3,51 +3,63 @@ import { Project, Skill, Experience, SocialLink } from '@/types';
 export const projects: Project[] = [
   {
     id: '1',
-    title: 'E-commerce Platform',
-    description: 'A full-stack e-commerce platform with modern UI and payment integration.',
-    longDescription: 'Built a complete e-commerce solution using Next.js, Node.js, and PostgreSQL. Features include user authentication, product management, shopping cart, payment processing with Stripe, and admin dashboard.',
+    title: 'Royal Logistic S.R.L.',
+    description: 'Sitio web corporativo para empresa de logística con sistema de gestión integrado.',
+    longDescription: 'Desarrollo completo del sitio web corporativo para Royal Logistic S.R.L., incluyendo diseño responsivo, sistema de gestión de contenido y funcionalidades específicas para el sector logístico.',
     image: '/images/projects/ecommerce-platform.svg',
-    techStack: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Stripe', 'Tailwind CSS'],
-    demoUrl: 'https://demo.example.com',
-    repoUrl: 'https://github.com/username/ecommerce',
+    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Node.js'],
+    demoUrl: 'https://royallogistic.com.ar',
+    repoUrl: '',
     featured: true,
     category: 'web'
   },
   {
     id: '2',
-    title: 'Task Management App',
-    description: 'A collaborative task management application with real-time updates.',
-    longDescription: 'Developed a real-time task management app using React, Socket.io, and MongoDB. Includes drag-and-drop functionality, team collaboration features, and progress tracking.',
+    title: 'Adivina Número',
+    description: 'Proyecto desafío desarrollado en equipo durante pasantía en TECLAB.',
+    longDescription: 'Aplicación de juego de adivinanza de números desarrollada como proyecto de desafío junto al equipo de pasantía en TECLAB. Incluye lógica de juego, interfaz interactiva y sistema de puntuación.',
     image: '/images/projects/task-management-app.svg',
-    techStack: ['React', 'Socket.io', 'MongoDB', 'Express', 'Material-UI'],
-    demoUrl: 'https://tasks.example.com',
-    repoUrl: 'https://github.com/username/taskapp',
+    techStack: ['JavaScript', 'HTML5', 'CSS3', 'Node.js'],
+    demoUrl: '',
+    repoUrl: '',
     featured: true,
     category: 'web'
   },
   {
     id: '3',
-    title: 'Weather Dashboard',
-    description: 'A responsive weather dashboard with location-based forecasts.',
-    longDescription: 'Created a weather application using Vue.js and OpenWeather API. Features include current weather, 7-day forecast, location search, and weather maps.',
+    title: 'TicTacTareas',
+    description: 'Proyecto desafío de gestión de tareas desarrollado en equipo para TECLAB.',
+    longDescription: 'Aplicación de gestión de tareas desarrollada como proyecto de desafío junto al equipo de pasantía en TECLAB. Incluye funcionalidades de creación, edición, eliminación y seguimiento de tareas.',
     image: '/images/projects/weather-dashboard.svg',
-    techStack: ['Vue.js', 'OpenWeather API', 'Chart.js', 'CSS3'],
-    demoUrl: 'https://weather.example.com',
-    repoUrl: 'https://github.com/username/weather',
-    featured: false,
+    techStack: ['React', 'JavaScript', 'CSS3', 'Local Storage'],
+    demoUrl: '',
+    repoUrl: '',
+    featured: true,
     category: 'web'
   },
   {
     id: '4',
-    title: 'Mobile Banking App',
-    description: 'A secure mobile banking application with biometric authentication.',
-    longDescription: 'Developed a cross-platform mobile banking app using React Native. Includes secure authentication, transaction history, bill payments, and account management.',
+    title: 'BOT WhatsApp con IA',
+    description: 'Bot de WhatsApp inteligente para automatización de atención al cliente.',
+    longDescription: 'Bot de WhatsApp eficiente diseñado para automatizar la atención a clientes y proveedores. Su enfoque principal es guiar a los usuarios a través de un menú interactivo para resolver consultas comunes de forma automática.',
     image: '/images/projects/mobile-banking-app.svg',
-    techStack: ['React Native', 'Node.js', 'MongoDB', 'JWT', 'Biometric Auth'],
-    demoUrl: 'https://banking.example.com',
-    repoUrl: 'https://github.com/username/banking',
+    techStack: ['Node.js', 'WhatsApp API', 'IA', 'JavaScript'],
+    demoUrl: '',
+    repoUrl: '',
     featured: true,
     category: 'mobile'
+  },
+  {
+    id: '5',
+    title: 'Portfolio Personal de Mariano López',
+    description: 'Portfolio personal con diseño moderno, modo oscuro/claro y ChatWidget interactivo.',
+    longDescription: 'Portfolio personal completo que incluye secciones de presentación, habilidades, proyectos y contacto, con un ChatWidget interactivo responsive. Cuenta con diseño moderno, modo oscuro/claro, animaciones suaves y formulario de contacto funcional. Desplegado en GitHub Pages con automatización completa.',
+    image: '/images/projects/ecommerce-platform.svg',
+    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'GitHub Pages'],
+    demoUrl: '',
+    repoUrl: '',
+    featured: false,
+    category: 'web'
   }
 ];
 
@@ -84,27 +96,27 @@ export const skills: Skill[] = [
 export const experience: Experience[] = [
   {
     id: '1',
-    title: 'Senior Frontend Developer',
-    company: 'Tech Solutions Inc.',
-    period: '2022 - Present',
-    description: 'Leading frontend development for multiple client projects, mentoring junior developers, and implementing best practices for scalable applications.',
+    title: 'Técnico Superior en Programación',
+    company: 'TECLAB - Salta Capital',
+    period: '2023 - Present',
+    description: 'Estudiante de programación especializado en desarrollo full stack. Participación en proyectos de desafío en equipo, desarrollo de aplicaciones web y móviles, y aprendizaje de tecnologías modernas.',
     current: true
   },
   {
     id: '2',
-    title: 'Full Stack Developer',
-    company: 'Digital Agency Co.',
-    period: '2020 - 2022',
-    description: 'Developed full-stack web applications using React, Node.js, and various databases. Collaborated with design teams to create user-friendly interfaces.',
-    current: false
+    title: 'Proyectos de Desafío',
+    company: 'TECLAB - Equipo de Pasantía',
+    period: '2023 - Present',
+    description: 'Desarrollo de proyectos desafío junto al equipo de pasantía, incluyendo aplicaciones de juegos, gestión de tareas y bots de WhatsApp con IA para automatización de procesos.',
+    current: true
   },
   {
     id: '3',
-    title: 'Frontend Developer',
-    company: 'StartupXYZ',
-    period: '2019 - 2020',
-    description: 'Built responsive web applications and mobile-first designs. Worked closely with product managers to implement new features and improve user experience.',
-    current: false
+    title: 'Desarrollador Freelance',
+    company: 'Proyectos Independientes',
+    period: '2022 - Present',
+    description: 'Desarrollo de sitios web corporativos y aplicaciones personalizadas. Especialización en Royal Logistic S.R.L. y otros proyectos de desarrollo web responsivo.',
+    current: true
   }
 ];
 

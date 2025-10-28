@@ -13,82 +13,65 @@ export interface Certificate {
 export const certificates: Certificate[] = [
   {
     id: '1',
-    title: 'Ingeniería en Sistemas de Información',
-    institution: 'Universidad Tecnológica Nacional',
-    date: '2018 - 2022',
-    description: 'Carrera universitaria enfocada en desarrollo de software, bases de datos y arquitectura de sistemas.',
+    title: 'Técnico Superior en Programación',
+    institution: 'TECLAB',
+    date: '2024-2025 - Presente',
+    description: 'Formación integral en desarrollo de software, bases de datos, y metodologías ágiles.',
     category: 'academic',
-    image: '/images/certificates/ingenieria-sistemas.jpg'
+    image: '/images/certificates/placeholder.txt'
   },
   {
     id: '2',
-    title: 'Certificación AWS Cloud Practitioner',
-    institution: 'Amazon Web Services',
-    date: '2023',
-    credentialId: 'AWS-CLF-123456',
-    credentialUrl: 'https://aws.amazon.com/verification/',
-    description: 'Certificación fundamental en servicios de computación en la nube de AWS.',
-    category: 'certification',
-    image: '/images/certificates/aws-cloud-practitioner.jpg'
+    title: 'Actualización Profesional en Inteligencia Artificial',
+    institution: 'TECLAB',
+    date: '2025',
+    description: 'Formación en fundamentos de Inteligencia Artificial, aprendizaje automático y aplicaciones prácticas en diferentes IA.',
+    category: 'professional',
+    image: '/images/certificates/placeholder.txt'
   },
   {
     id: '3',
-    title: 'React Developer Certification',
-    institution: 'Meta (Facebook)',
-    date: '2023',
-    credentialId: 'META-REACT-789012',
-    credentialUrl: 'https://coursera.org/verify/',
-    description: 'Certificación profesional en desarrollo de aplicaciones con React y ecosistema JavaScript moderno.',
-    category: 'certification',
-    image: '/images/certificates/react-developer.jpg'
+    title: 'Programa de Entrenamiento Laboral (PEL)',
+    institution: 'TECLAB',
+    date: '2025',
+    description: 'Tuve la oportunidad de participar en este programa que me permitió ganar experiencia práctica en el mundo laboral. Allí pude fortalecer mis habilidades, aprender nuevas formas de trabajo y prepararme mejor para futuros desafíos profesionales.',
+    category: 'professional',
+    image: '/images/certificates/placeholder.txt'
   },
   {
     id: '4',
-    title: 'TypeScript Fundamentals',
-    institution: 'Microsoft Learn',
-    date: '2022',
-    description: 'Curso especializado en TypeScript, tipado estático y mejores prácticas de desarrollo.',
+    title: 'Semana de Excel en la Práctica',
+    institution: 'Daxus Latam',
+    date: '2025',
+    description: 'Certificado de participación en taller práctico de Excel (8 horas académicas) con enfoque en fórmulas, tablas dinámicas y herramientas de análisis para optimización de procesos.',
     category: 'course',
-    image: '/images/certificates/typescript-fundamentals.jpg'
+    image: '/images/certificates/placeholder.txt'
   },
   {
     id: '5',
-    title: 'Diseño UX/UI Avanzado',
-    institution: 'Google Career Certificates',
-    date: '2022',
-    credentialId: 'GOOGLE-UX-345678',
-    credentialUrl: 'https://grow.google/certificates/',
-    description: 'Especialización en diseño de experiencia de usuario e interfaces digitales.',
-    category: 'professional',
-    image: '/images/certificates/ux-ui-design.jpg'
+    title: 'Fundamentos de Ethical Hacking',
+    institution: 'Seguridad CERO',
+    date: '2024',
+    description: 'Formación introductoria en Ethical Hacking (4 horas académicas) con enfoque en principios de ciberseguridad, análisis de vulnerabilidades y buenas prácticas de seguridad informática.',
+    category: 'course',
+    image: '/images/certificates/placeholder.txt'
   },
   {
     id: '6',
-    title: 'Node.js Backend Development',
-    institution: 'FreeCodeCamp',
-    date: '2021',
-    description: 'Desarrollo de APIs y aplicaciones backend con Node.js, Express y MongoDB.',
-    category: 'course',
-    image: '/images/certificates/nodejs-backend.jpg'
+    title: 'Asistente en Higiene y Seguridad',
+    institution: 'Instituto NOVAEDU',
+    date: '2020-2021',
+    description: 'Asistente en Higiene y Seguridad Laboral',
+    category: 'professional',
+    image: '/images/certificates/placeholder.txt'
   },
   {
     id: '7',
-    title: 'Agile Project Management',
-    institution: 'Scrum Alliance',
-    date: '2023',
-    credentialId: 'CSM-901234',
-    credentialUrl: 'https://scrumalliance.org/verify/',
-    description: 'Certificación Scrum Master para gestión ágil de proyectos de desarrollo.',
-    category: 'certification',
-    image: '/images/certificates/scrum-master.jpg'
-  },
-  {
-    id: '8',
-    title: 'Git y Control de Versiones',
-    institution: 'GitHub Education',
-    date: '2021',
-    description: 'Especialización en control de versiones, flujos de trabajo colaborativo y DevOps.',
-    category: 'course',
-    image: '/images/certificates/git-github.jpg'
+    title: 'Gestor de Transporte',
+    institution: 'C-TRANS',
+    date: '2020-2021',
+    description: 'Gestor de transporte: Transporte de carga general, internacional y peligrosa',
+    category: 'professional',
+    image: '/images/certificates/placeholder.txt'
   }
 ];
