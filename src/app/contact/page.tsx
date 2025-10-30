@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { ContactForm } from '@/types';
+import { PageTransition } from '@/components/PageTransition';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState<ContactForm>({
@@ -73,7 +74,8 @@ const ContactPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark-900">
+    <PageTransition>
+      <div className="min-h-screen bg-white dark:bg-dark-900">
       {/* Header Section */}
       <section className="section-padding bg-gradient-to-r from-primary-50 to-purple-50 dark:from-dark-800 dark:to-dark-900">
         <div className="container-custom">
@@ -308,7 +310,8 @@ const ContactPage = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

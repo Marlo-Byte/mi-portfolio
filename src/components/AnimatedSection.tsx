@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ReactNode } from 'react';
 
 interface AnimatedSectionProps {
@@ -8,23 +8,35 @@ interface AnimatedSectionProps {
   delay?: number;
   className?: string;
   isVisible: boolean;
+  key?: string | number;
 }
 
-export const AnimatedSection = ({ 
-  children, 
-  delay = 0, 
-  className = '', 
-  isVisible 
+export const AnimatedSection = ({
+  children,
+  delay = 0,
+  className = '',
+  isVisible,
+  key
 }: AnimatedSectionProps) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.8, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+    <AnimatePresence mode="wait">
+      {isVisible && (
+        <motion.div
+          key={key}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{
+            duration: 0.6,
+            delay,
+            ease: "easeOut"
+          }}
+          className={className}
+        >
+          {children}
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
@@ -35,11 +47,11 @@ interface AnimatedCardProps {
   className?: string;
 }
 
-export const AnimatedCard = ({ 
-  children, 
-  index, 
-  isVisible, 
-  className = '' 
+export const AnimatedCard = ({
+  children,
+  index,
+  isVisible,
+  className = ''
 }: AnimatedCardProps) => {
   return (
     <motion.div

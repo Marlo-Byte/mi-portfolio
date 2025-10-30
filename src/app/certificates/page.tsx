@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap, faCertificate, faBookOpen, faAward } from '@fortawesome/free-solid-svg-icons';
 import { certificates } from '@/lib/certificates';
 import { Certificate as CertificateType } from '@/lib/certificates';
+import { PageTransition } from '@/components/PageTransition';
 
 const CertificatesPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -74,7 +75,8 @@ const CertificatesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark-900">
+    <PageTransition>
+      <div className="min-h-screen bg-white dark:bg-dark-900">
       {/* Header Section */}
       <section className="section-padding bg-gradient-to-r from-primary-50 to-purple-50 dark:from-dark-800 dark:to-dark-900">
         <div className="container-custom">
@@ -158,7 +160,8 @@ const CertificatesPage = () => {
           )}
         </div>
       </section>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 

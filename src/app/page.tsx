@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -12,32 +12,11 @@ import { certificates } from '@/lib/certificates';
 import { StarsInteractive } from '@/components/animate-ui/components/backgrounds/stars';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { AnimatedSection, AnimatedCard } from '@/components/AnimatedSection';
+import { usePageAnimation } from '@/hooks/usePageAnimation';
+import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards';
 
 const HomePage = () => {
-  const [mounted, setMounted] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  
-  useEffect(() => {
-    setMounted(true);
-    setIsVisible(true);
-    
-    // Forzar recarga cuando se navega de vuelta al home
-    const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        setRefreshKey(prev => prev + 1);
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, []);
+  const { isVisible, mounted, animationKey } = usePageAnimation();
 
   const featuredProjects = projects.filter(project => project.featured).slice(0, 3);
   const featuredCertificates = certificates.slice(0, 3);
@@ -52,7 +31,16 @@ const HomePage = () => {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen" key={`home-page-${refreshKey}`}>
+      <AnimatePresence mode="wait">
+        {isVisible && (
+          <motion.div
+            className="min-h-screen"
+            key={`home-page-${animationKey}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
       {/* Hero Section */}
       <section className="relative section-padding bg-gradient-to-br from-primary-50 via-white to-purple-50 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900 overflow-hidden">
         {/* Stars Background */}
@@ -182,6 +170,7 @@ const HomePage = () => {
                     width={400}
                     height={400}
                     className="w-full h-full object-cover"
+                    loading="eager"
                     priority
                     quality={90}
                     unoptimized={false}
@@ -209,50 +198,48 @@ const HomePage = () => {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" key={`projects-${refreshKey}`}>
-            {featuredProjects.map((project, index) => (
-              <AnimatedCard
-                key={`project-${project.id}-${index}-${refreshKey}`}
-                index={index}
-                isVisible={isVisible}
-                className="card group cursor-pointer"
-              >
-                <div className="relative h-48 overflow-hidden rounded-t-xl">
+          <InfiniteMovingCards
+            items={projects.map(project => ({
+              name: project.title,
+              title: project.techStack.join(' • '),
+              description: project.description,
+              ...project
+            }))}
+            direction="left"
+            speed="slow"
+            pauseOnHover={true}
+            className="mx-auto"
+            renderCard={(project: any) => (
+              <div className="relative h-full">
+                <div className="relative h-48 overflow-hidden rounded-xl mb-4">
                   <Image
                     src={project.image}
                     alt={project.title}
                     width={400}
                     height={300}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover"
                     loading="lazy"
                     quality={85}
-                    unoptimized={false}
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300"></div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.techStack.slice(0, 3).map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.techStack.length > 3 && (
-                      <span className="px-3 py-1 bg-gray-100 dark:bg-dark-700 text-gray-600 dark:text-gray-400 text-sm rounded-full">
-                        +{project.techStack.length - 3}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex space-x-4">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.techStack?.slice(0, 3).map((tech: string) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs rounded-full"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                {(project.demoUrl || project.repoUrl) && (
+                  <div className="flex space-x-3">
                     {project.demoUrl && (
                       <a
                         href={project.demoUrl}
@@ -274,10 +261,10 @@ const HomePage = () => {
                       </a>
                     )}
                   </div>
-                </div>
-              </AnimatedCard>
-            ))}
-          </div>
+                )}
+              </div>
+            )}
+          />
 
           <AnimatedSection isVisible={isVisible} delay={0.6} className="text-center mt-12">
             <Link
@@ -362,55 +349,61 @@ const HomePage = () => {
             </p>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" key={`certificates-${refreshKey}`}>
-            {featuredCertificates.map((certificate, index) => (
-              <AnimatedCard
-                key={`certificate-${certificate.id}-${index}-${refreshKey}`}
-                index={index}
-                isVisible={isVisible}
-                className="card group cursor-pointer"
-              >
-                <div className="p-6">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
-                      <FontAwesomeIcon
-                        icon={certificate.category === 'academic' ? faLaptopCode : faCode}
-                        className="w-6 h-6 text-primary-600 dark:text-primary-400"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        {certificate.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {certificate.institution}
-                      </p>
-                    </div>
+          <InfiniteMovingCards
+            items={certificates.map(certificate => ({
+              name: certificate.title,
+              title: certificate.institution,
+              description: certificate.description,
+              date: certificate.date,
+              credentialUrl: certificate.credentialUrl,
+              category: certificate.category,
+              ...certificate
+            }))}
+            direction="right"
+            speed="slow"
+            pauseOnHover={true}
+            className="mx-auto"
+            renderCard={(certificate: any) => (
+              <div className="relative h-full">
+                <div className="flex items-start space-x-3 mb-4">
+                  <div className="p-3 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex-shrink-0">
+                    <FontAwesomeIcon
+                      icon={certificate.category === 'academic' ? faLaptopCode : faCode}
+                      className="w-6 h-6 text-primary-600 dark:text-primary-400"
+                    />
                   </div>
-
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
-                    {certificate.description}
-                  </p>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                      {certificate.date}
-                    </span>
-                    {certificate.credentialUrl && (
-                      <a
-                        href={certificate.credentialUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-sm font-medium"
-                      >
-                        Verificar →
-                      </a>
-                    )}
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                      {certificate.title}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {certificate.institution}
+                    </p>
                   </div>
                 </div>
-              </AnimatedCard>
-            ))}
-          </div>
+
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                  {certificate.description}
+                </p>
+
+                <div className="flex items-center justify-between mt-auto">
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
+                    {certificate.date}
+                  </span>
+                  {certificate.credentialUrl && (
+                    <a
+                      href={certificate.credentialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 text-xs font-medium"
+                    >
+                      Verificar →
+                    </a>
+                  )}
+                </div>
+              </div>
+            )}
+          />
 
           <AnimatedSection isVisible={isVisible} delay={0.6} className="text-center mt-12">
             <Link
@@ -423,7 +416,9 @@ const HomePage = () => {
           </AnimatedSection>
         </div>
       </section>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </ErrorBoundary>
   );
 };

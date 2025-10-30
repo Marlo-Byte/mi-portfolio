@@ -1,14 +1,17 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Download, MapPin, Calendar, Code, Palette, Database, Wrench } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode, faLaptopCode, faDatabase, faTools, faPalette, faServer, faCog } from '@fortawesome/free-solid-svg-icons';
 import { skills, experience } from '@/lib/data';
 import { Skill, Experience } from '@/types';
+import { usePageAnimation } from '@/hooks/usePageAnimation';
 
 const AboutPage = () => {
+  const { isVisible, mounted, animationKey } = usePageAnimation();
+
   const skillCategories = {
     frontend: { icon: faPalette, color: 'text-blue-500' },
     backend: { icon: faServer, color: 'text-green-500' },
@@ -20,26 +23,43 @@ const AboutPage = () => {
     return skills.filter(skill => skill.category === category);
   };
 
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white dark:bg-dark-900">
-      {/* Header Section */}
-      <section className="section-padding bg-gradient-to-r from-primary-50 to-purple-50 dark:from-dark-800 dark:to-dark-900">
-        <div className="container-custom">
+      <AnimatePresence mode="wait">
+        {isVisible && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-3xl mx-auto"
+            key={`about-page-${animationKey}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Sobre <span className="gradient-text">Mí</span>
-            </h1>
-            <p className="text-lg text-gray-600 dark:text-gray-400">
-              Conoce más sobre mi trayectoria y pasión por la programación
-            </p>
-          </motion.div>
-        </div>
-      </section>
+            {/* Header Section */}
+            <section className="section-padding bg-gradient-to-r from-primary-50 to-purple-50 dark:from-dark-800 dark:to-dark-900">
+              <div className="container-custom">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="text-center max-w-3xl mx-auto"
+                >
+                  <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+                    Sobre <span className="gradient-text">Mí</span>
+                  </h1>
+                  <p className="text-lg text-gray-600 dark:text-gray-400">
+                    Conoce más sobre mi trayectoria y pasión por la programación
+                  </p>
+                </motion.div>
+              </div>
+            </section>
 
       {/* About Content */}
       <section className="section-padding">
@@ -62,6 +82,9 @@ const AboutPage = () => {
                     width={500}
                     height={500}
                     className="w-full h-full object-cover"
+                    loading="eager"
+                    priority
+                    quality={90}
                   />
                 </div>
                 <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-600 rounded-full flex items-center justify-center shadow-lg">
@@ -96,20 +119,20 @@ const AboutPage = () => {
 
               <div className="space-y-4 text-gray-600 dark:text-gray-400">
                 <p>
-                  Soy un estudiante apasionado de Técnico Superior en Programación en TECLAB, 
-                  ubicado en la hermosa ciudad de Salta Capital. Mi viaje en el mundo de la 
+                  Soy un estudiante apasionado de Técnico Superior en Programación en TECLAB,
+                  ubicado en la hermosa ciudad de Salta Capital. Mi viaje en el mundo de la
                   programación comenzó con curiosidad y se ha convertido en una verdadera pasión.
                 </p>
                 <p>
-                  Me especializo en el desarrollo full stack, combinando creatividad con 
-                  funcionalidad para crear experiencias web excepcionales. Disfruto enfrentando 
-                  nuevos desafíos y aprendiendo tecnologías emergentes que me permitan crear 
+                  Me especializo en el desarrollo full stack, combinando creatividad con
+                  funcionalidad para crear experiencias web excepcionales. Disfruto enfrentando
+                  nuevos desafíos y aprendiendo tecnologías emergentes que me permitan crear
                   soluciones innovadoras.
                 </p>
                 <p>
-                  En mi tiempo libre me gusta jugar al pádel con amigos, ir al gimnasio y 
-                  practicar con proyectos personales para seguir aprendiendo y mejorando mis 
-                  habilidades. Creo firmemente en el aprendizaje continuo y en compartir 
+                  En mi tiempo libre me gusta jugar al pádel con amigos, ir al gimnasio y
+                  practicar con proyectos personales para seguir aprendiendo y mejorando mis
+                  habilidades. Creo firmemente en el aprendizaje continuo y en compartir
                   conocimiento con la comunidad.
                 </p>
               </div>
@@ -266,6 +289,9 @@ const AboutPage = () => {
           </motion.div>
         </div>
       </section>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

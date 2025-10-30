@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { ExternalLink, Github, Filter, Search } from 'lucide-react';
 import { projects } from '@/lib/data';
 import { Project } from '@/types';
+import { PageTransition } from '@/components/PageTransition';
 
 const ProjectsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -30,7 +31,8 @@ const ProjectsPage = () => {
   });
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark-900">
+    <PageTransition>
+      <div className="min-h-screen bg-white dark:bg-dark-900">
       {/* Header Section */}
       <section className="section-padding bg-gradient-to-r from-primary-50 to-purple-50 dark:from-dark-800 dark:to-dark-900">
         <div className="container-custom">
@@ -113,7 +115,8 @@ const ProjectsPage = () => {
           )}
         </div>
       </section>
-    </div>
+      </div>
+    </PageTransition>
   );
 };
 
