@@ -96,26 +96,26 @@ export const skills: Skill[] = [
 export const experience: Experience[] = [
   {
     id: '1',
-    title: 'Técnico Superior en Programación',
-    company: 'TECLAB - Salta Capital',
-    period: '2023 - Present',
-    description: 'Estudiante de programación especializado en desarrollo full stack. Participación en proyectos de desafío en equipo, desarrollo de aplicaciones web y móviles, y aprendizaje de tecnologías modernas.',
+    title: 'Desarrollador Freelance',
+    company: 'Royal Logistic S.R.L. y Proyectos Independientes',
+    period: '2020 - Present',
+    description: 'Desarrollador freelance especializado en sitios web corporativos y aplicaciones personalizadas. Actualmente trabajando en Royal Logistic S.R.L., desarrollando soluciones web responsivas y sistemas de gestión integrados. Mejora continua en tecnologías modernas y metodologías ágiles.',
     current: true
   },
   {
     id: '2',
-    title: 'Proyectos de Desafío',
-    company: 'TECLAB - Equipo de Pasantía',
-    period: '2023 - Present',
-    description: 'Desarrollo de proyectos desafío junto al equipo de pasantía, incluyendo aplicaciones de juegos, gestión de tareas y bots de WhatsApp con IA para automatización de procesos.',
+    title: 'Técnico Superior en Programación',
+    company: 'TECLAB - Salta Capital',
+    period: '2024 - Present',
+    description: 'Formación completa en programación full stack incluyendo: desarrollo frontend y backend, bases de datos SQL y NoSQL, APIs REST, arquitectura de software, programación móvil, metodologías ágiles (Scrum), control de versiones (Git), testing y debugging, seguridad web, y buenas prácticas de desarrollo. Proyectos prácticos y colaborativos que preparan para el mundo laboral real.',
     current: true
   },
   {
     id: '3',
-    title: 'Desarrollador Freelance',
-    company: 'Proyectos Independientes',
-    period: '2022 - Present',
-    description: 'Desarrollo de sitios web corporativos y aplicaciones personalizadas. Especialización en Royal Logistic S.R.L. y otros proyectos de desarrollo web responsivo.',
+    title: 'Proyectos de Desafío',
+    company: 'TECLAB - Equipo de Pasantía',
+    period: 'Septiembre 2025 - Present',
+    description: 'Participación en proyectos desafío junto al equipo de pasantía, incluyendo desarrollo de aplicaciones de juegos interactivos, sistemas de gestión de tareas, y bots de WhatsApp con integración de IA para automatización de procesos. Trabajo colaborativo aplicando metodologías ágiles y tecnologías modernas.',
     current: true
   }
 ];

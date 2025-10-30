@@ -294,7 +294,12 @@ const ExperienceCard = ({ experience, index, isVisible, totalItems }: { experien
         {/* Timeline Dot */}
         <div className="flex-shrink-0 w-12 h-12 bg-primary-600 rounded-full flex items-center justify-center shadow-lg">
           <span className="text-white font-bold text-sm">
-            {new Date(experience.period.split(' - ')[0]).getFullYear().toString().slice(-2)}
+            {(() => {
+              const startYear = experience.period.split(' - ')[0];
+              // Extraer el año (últimos 4 dígitos encontrados)
+              const yearMatch = startYear.match(/\d{4}/);
+              return yearMatch ? yearMatch[0].slice(-2) : startYear.slice(-2);
+            })()}
           </span>
         </div>
 

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Github, Linkedin, Twitter, Mail, Heart } from 'lucide-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -46,12 +47,22 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand Section */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">M</span>
+            <Link href="/" className="flex items-center space-x-4 group">
+              <div className="relative w-14 h-14 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                <Image
+                  src="/images/logos/ML.png"
+                  alt="MarLo Byte Logo"
+                  width={56}
+                  height={56}
+                  className="w-14 h-14 object-contain drop-shadow-lg"
+                  priority
+                />
               </div>
-              <span className="text-xl font-bold gradient-text">Mariano</span>
-            </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold gradient-text leading-tight">Mariano López</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400 font-medium -mt-1">MarLo Byte</span>
+              </div>
+            </Link>
             <p className="text-gray-600 dark:text-gray-400 max-w-md">
               Desarrollador frontend apasionado por crear experiencias digitales
               excepcionales y soluciones innovadoras.
